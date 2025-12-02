@@ -1,4 +1,4 @@
-🚀 Salesforce Case Management App
+# 🚀 Salesforce Case Management App
 
 <p align="center">
   <img src="https://img.shields.io/badge/Salesforce-Apex-blue?logo=salesforce&style=for-the-badge"/>
@@ -6,103 +6,80 @@
   <img src="https://img.shields.io/badge/Flows-Automation-blueviolet?style=for-the-badge"/>
   <img src="https://img.shields.io/badge/CI/CD-Enabled-success?style=for-the-badge&logo=github"/>
   <img src="https://img.shields.io/badge/Status-Complete-brightgreen?style=for-the-badge"/>
-  <img src="https://img.shields.io/badge/Author-%20Chimeziri%20Anyanwu-orange?style=for-the-badge"/>
+  <img src="https://img.shields.io/badge/Author-Chimeziri%20Anyanwu-orange?style=for-the-badge"/>
 </p>
 
 ---
 
-
-Apex • Lightning Web Components (LWC) • Flows • Queues • Dashboards
+Apex • Lightning Web Components (LWC) • Flows • Queues • Dashboards  
 
 A full Salesforce Case Management Solution designed to demonstrate real enterprise Salesforce development skills, including Apex Trigger Patterns, LWC form components, automation with Flows, queue routing, and analytics dashboards.
 
 This project is fully implemented and tested in a Salesforce Developer Org.
 
-🌟 Features
+---
 
-🔹 1. Apex Case Assignment Engine
+# 🌟 Features
 
-Automatically assigns cases to Tech Support or Billing Support queues
+---
 
-Applies Apex Handler Pattern for clean, scalable logic
+## 🔹 1. Apex Case Assignment Engine
+- Automatically assigns cases to Tech Support or Billing Support queues  
+- Applies Apex Handler Pattern for clean, scalable logic  
+- Automatically sets SLA Due Date (+8 hours from creation)  
+- Gracefully handles incomplete or invalid cases  
 
-Automatically sets SLA Due Date (+8 hours from creation)
+---
 
-Gracefully handles incomplete or invalid cases 
-
-
-🔹 2. Lightning Web Component – Quick Case Update
-
+## 🔹 2. Lightning Web Component – Quick Case Update
 A modern LWC embedded directly on the Case Record Page:
 
-Update Status
+- Update Status  
+- Update Priority  
+- Add Internal Comments  
+- Uses `lightning-record-edit-form` and `updateRecord`  
+- Instant UI refresh using LDS (Lightning Data Service)  
 
-Update Priority
+---
 
-Add Internal Comments
+## 🔹 3. Automation with Flows
 
-Uses lightning-record-edit-form and updateRecord
-
-Instant UI refresh using LDS (Lightning Data Service)
-
-
-🔹 3. Automation with Flows
-✔ Escalation Email Flow
-
+### ✔ Escalation Email Flow
 Sends an email when Status = Escalated.
 
-✔ SLA Breach Flow (Scheduled Path)
+### ✔ SLA Breach Flow (Scheduled Path)
+Automatically marks `SLA_Breached__c = TRUE` when the SLA Due Date is reached.
 
-Automatically marks SLA_Breached__c = TRUE when the SLA Due Date is reached.
+---
 
-
-🔹 4. Custom Fields & Data Model Enhancements
+## 🔹 4. Custom Fields & Data Model Enhancements
 
 Added to the Case object:
 
-Field	API Name	Type
-Issue Type	Issue_Type__c	Picklist
-SLA Due Date	SLA_Due_Date__c	Date/Time
-SLA Breached	SLA_Breached__c	Checkbox
-Internal Comment	Internal_Comment__c	Long Text
+| Field | API Name | Type |
+|-------|----------|-------|
+| Issue Type | Issue_Type__c | Picklist |
+| SLA Due Date | SLA_Due_Date__c | Date/Time |
+| SLA Breached | SLA_Breached__c | Checkbox |
+| Internal Comment | Internal_Comment__c | Long Text |
 
-🔹 5. Reports & Dashboard
+---
 
+## 🔹 5. Reports & Dashboard
 Includes a Case Management Overview Dashboard:
 
-Cases by Priority (donut chart)
+- Cases by Priority (donut chart)  
+- SLA Breached Cases (table)  
+- Real-time case performance analytics  
 
-SLA Breached Cases (table)
+---
 
-Shows real-time case performance
-
-🧩 Project Structure
-
-force-app/main/default/
-│
-
-├── classes/
-│   ├── CaseAutoAssignTrigger.trigger
-│   └── CaseAutoAssignHandler.cls
-│
-
-├── lwc/
-│   └── quickCaseUpdate/
-│       ├── quickCaseUpdate.html
-│       ├── quickCaseUpdate.js
-│       └── quickCaseUpdate.js-meta.xml
-│
-
-├── objects/
-│   └── Case/
-│       └── fields/... (Custom Fields)
-│
-
-└── dashboards/
-    └── Case_Management_Overview.dashboard
+# 🧩 Project Structure
 
 
-📸 Screenshots
+---
+
+# 📸 Screenshots
 
 ### Case Record Page – Updated Case Details
 <img src="docs/screenshots/case-record-page-1.png" width="700"/>
@@ -119,96 +96,76 @@ force-app/main/default/
 ### SLA Breach Flow
 <img src="docs/screenshots/flow-sla-breach.png" width="700"/>
 
+---
 
-⚙️ Setup Instructions
+# ⚙️ Setup Instructions
 
-1. Clone the Repository
+### 1. Clone the Repository
+
 git clone https://github.com/Mezirix/salesforce-case-management-app.git
+
 cd salesforce-case-management-app
 
-2. Authorize Salesforce Org
+
+### 2. Authorize Salesforce Org
 sf org login web -a DevOrg
 
-3. Deploy Source
+
+### 3. Deploy Source
+
 sf project deploy start
 
-4. Assign the LWC to Case Page
 
-Setup → Object Manager → Case
+### 4. Assign the LWC to Case Page
+**Setup → Object Manager → Case → Lightning Record Pages → Edit Page → Drag Quick Case Update → Save & Activate**
 
-Lightning Record Pages
+---
 
-Edit page
+# 🧪 How to Test the App
 
-Drag Quick Case Update onto the page
+### ✔ Test Case Assignment
+1. Create a Case  
+2. Set:  
+   - Issue Type = Technical  
+   - Priority = High  
+3. Save  
+4. Case Owner should automatically update to Tech Queue  
 
-Save & Activate
+### ✔ Test Escalation Email
+1. Open a Case  
+2. Change Status → Escalated  
+3. Email should trigger  
 
-🧪 How to Test the App
+### ✔ Test SLA Breach Flow
+1. Set SLA Due Date to a past time  
+2. Edit case once to retrigger flow  
+3. `SLA_Breached__c = TRUE`
 
-Test Case Assignment
+---
 
-Create a Case
+# 🛠️ Technologies Used
 
-Set:
+- Apex (Trigger, Handler Pattern)  
+- Lightning Web Components (LWC)  
+- Salesforce Flows  
+- Queue Management  
+- SOQL  
+- Lightning App Builder  
+- Dashboards & Reports  
+- Git & GitHub  
+- VS Code + Salesforce Extensions  
 
-Issue Type = Technical
+---
 
-Priority = High
+# 👨‍💻 Author  
+**Christiantus Chimeziri Anyanwu**  
+Salesforce Developer | AI & Cloud Engineer  
 
-Save
+GitHub: https://github.com/Mezirix  
+LinkedIn: https://www.linkedin.com/in/chimezirianyanwu/
 
-Case Owner should automatically update to Tech Queue
+---
 
-Test Escalation Email
-
-Open a Case
-
-Change Status → Escalated
-
-Email should trigger
-
-Test SLA Breach Flow
-
-Set SLA Due Date to a past time
-
-Edit case once to retrigger flow
-
-SLA_Breached__c becomes TRUE
-
-
-🛠️ Technologies Used
-
-Apex (Trigger, Handler Pattern)
-
-Lightning Web Components (LWC)
-
-Salesforce Flows (Record-Triggered + Scheduled)
-
-Queue Management
-
-SOQL
-
-Lightning App Builder
-
-Dashboards & Reports
-
-Git & GitHub
-
-VS Code + Salesforce Extension Pack
-
-
-👨‍💻 Author
-
-Christiantus Chimeziri Anyanwu
-
-Salesforce Developer | AI & Cloud Engineer
-
-GitHub: https://github.com/Mezirix
-
-LinkedIn: (https://www.linkedin.com/in/chimezirianyanwu/)
-
-
-📜 License
-
+# 📜 License  
 This project is open-source under the MIT License.
+
