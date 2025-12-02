@@ -1,0 +1,37 @@
+<template>
+    <lightning-card title="Quick Case Update">
+        <div class="slds-p-around_small">
+            <lightning-combobox
+                name="status"
+                label="Status"
+                value={status}
+                placeholder="Select status"
+                options={statusOptions}
+                onchange={handleStatusChange}>
+            </lightning-combobox>
+
+            <lightning-combobox
+                name="priority"
+                label="Priority"
+                value={priority}
+                placeholder="Select priority"
+                options={priorityOptions}
+                onchange={handlePriorityChange}>
+            </lightning-combobox>
+
+            <lightning-textarea
+                name="comment"
+                label="Internal Comment"
+                value={internalComment}
+                onchange={handleCommentChange}>
+            </lightning-textarea>
+
+            <lightning-button
+                class="slds-m-top_small"
+                variant="brand"
+                label="Save"
+                onclick={handleSave}>
+            </lightning-button>
+        </div>
+    </lightning-card>
+</template>
