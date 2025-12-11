@@ -1,0 +1,75 @@
+<template>
+    <lightning-card title="Currency Rates Dashboard" icon-name="utility:world">
+        <div class="slds-m-around_medium">
+
+            <!-- Filters + Search + Refresh -->
+            <div class="slds-grid slds-wrap slds-gutters slds-m-bottom_medium filters">
+
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-4">
+                    <lightning-input
+                        type="search"
+                        label="Search Currency Code"
+                        value={searchKey}
+                        onchange={handleSearchChange}>
+                    </lightning-input>
+                </div>
+
+                <div class="slds-col slds-size_1-of-2 slds-medium-size_1-of-4">
+                    <lightning-input
+                        type="number"
+                        label="Min Rate"
+                        value={minRate}
+                        onchange={handleMinRateChange}>
+                    </lightning-input>
+                </div>
+
+                <div class="slds-col slds-size_1-of-2 slds-medium-size_1-of-4">
+                    <lightning-input
+                        type="number"
+                        label="Max Rate"
+                        value={maxRate}
+                        onchange={handleMaxRateChange}>
+                    </lightning-input>
+                </div>
+
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-4 slds-m-top_small">
+                    <lightning-button
+                        variant="brand"
+                        label="Refresh Rates"
+                        onclick={handleRefresh}
+                        disabled={isRefreshing}>
+                    </lightning-button>
+                </div>
+            </div>
+
+            <!-- Chart -->
+            <div class="chart-container slds-m-bottom_medium">
+                <template if:true={filteredCurrencies}>
+                    <canvas class="chart" lwc:dom="manual"></canvas>
+                </template>
+            </div>
+
+            <!-- Table -->
+            <template if:true={filteredCurrencies}>
+                <table class="slds-table slds-table_bordered slds-table_cell-buffer">
+                    <thead>
+                        <tr>
+                            <th>Currency</th>
+                            <th>Rate</th>
+                            <th>Updated</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <template for:each={filteredCurrencies} for:item="item">
+                            <tr key={item.Id}>
+                                <td>{item.Currency_Code__c}</td>
+                                <td>{item.Rate__c}</td>
+                                <td>{item.CreatedDate}</td>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
+            </template>
+        </div>
+    </lightning-card>
+</template>
