@@ -157,6 +157,174 @@ sf project deploy start
 
 ---
 
+# Project 2
+
+🌍 Salesforce Currency Exchange Dashboard
+
+Live Currency API Integration • Apex Callouts • LWC Analytics Dashboard
+
+This project demonstrates a full end-to-end Salesforce integration using external REST APIs, scheduled sync, custom objects, and a Lightning Web Component dashboard for real-time insights.
+
+🚀 Project Overview
+
+A Salesforce solution that retrieves live foreign-exchange rates from an external API, stores them in a custom object, and displays them in a dynamic LWC dashboard using Chart.js visualization.
+
+This project highlights:
+
+Apex HTTP callouts
+
+JSON deserialization into typed classes
+
+Error handling and response validation
+
+Scheduled job for daily updates
+
+LWC table + bar chart visualization
+
+Custom object data storage
+
+Chart.js static resource integration
+
+🛠️ Features
+🔹 1. Apex REST API Integration
+
+Fetches real-time currency rates via callout:
+
+Uses HttpRequest + Http classes
+
+Robust error handling for API failures
+
+JSON to Apex deserialization
+
+Returns structured Currency__c records
+
+🔹 2. Custom Currency Object
+
+Stores each currency and its live rate:
+
+Field	Type
+Currency_Code__c	Text
+Rate__c	Number
+Retrieved_On__c	Date/Time
+🔹 3. Automated Sync
+
+A daily scheduled Apex job updates all currency records automatically:
+
+Schedulable class
+
+ExternalDataSync orchestrates the pull + upsert
+
+Zero manual work needed
+
+🔹 4. LWC Currency Dashboard
+
+A modern Lightning Web Component displaying:
+
+Interactive bar chart (Chart.js)
+
+Real-time rate table
+
+Responsive UI
+
+Apex Controller → Wire adapters for data sync
+
+🔹 5. Chart.js Static Resource
+
+Included as a static resource bundle for use inside LWC components.
+
+📸 Screenshots
+Currency List View
+
+<img width="857" height="987" alt="Currencies Object List View" src="https://github.com/user-attachments/assets/8f25f9eb-00e3-4138-a7c8-6bf22c3f5f0e" />
+
+
+
+LWC Dashboard Table
+
+<img width="857" height="987" alt="Full Table View (LWC Dashboard Output Table)" src="https://github.com/user-attachments/assets/4deb88f6-c5ca-4252-bbd8-7659b100831e" />
+
+
+
+LWC Dashboard Chart
+
+<img width="857" height="987" alt="LWC Dashboard (Filters + Chart + First Row of Table)" src="https://github.com/user-attachments/assets/edde3da8-1c2d-4e42-af6e-9b8319c27f2c" />
+
+
+
+App Launcher Tile
+
+<img width="857" height="987" alt="App Launcher – Currencies Object Available" src="https://github.com/user-attachments/assets/a0a32597-40e6-413a-b278-96df18c995b6" />
+
+
+📦 Project Structure
+
+
+force-app/main/default/
+│
+
+├── classes/
+
+│   ├── CurrencyApiService.cls
+│   ├── ExternalDataSync.cls
+│   ├── ExternalDataScheduler.cls
+│   ├── CurrencyDashboardController.cls
+│
+
+├── objects/
+
+│   └── Currency__c/
+│       ├── fields/
+│       └── listViews/All.listView-meta.xml
+│
+
+├── lwc/
+
+│   └── currencyDashboard/
+│       ├── currencyDashboard.html
+│       ├── currencyDashboard.js
+│       ├── currencyDashboard.css
+│       └── currencyDashboard.js-meta.xml
+│
+
+└── staticresources/
+    └── chartjs.resource  
+
+
+🧪 How to Test
+1️⃣ Run a Live API Pull
+
+Developer Console → Execute Anonymous:
+
+List<Currency__c> records = CurrencyApiService.pullRates();
+upsert records;
+
+2️⃣ View Currency Records
+
+Go to App Launcher → Currencies → All.
+
+3️⃣ Open LWC Dashboard
+
+App Launcher → Currency Dashboard.
+
+4️⃣ Trigger Scheduled Sync
+System.schedule('Daily Update', '0 0 2 * * ?', new ExternalDataScheduler());
+
+🛠️ Technologies Used
+
+Apex (HTTP Callouts, JSON Parsing)
+
+Lightning Web Components
+
+Chart.js
+
+Custom Metadata & Objects
+
+Scheduler + Batch Logic
+
+Git/GitHub
+
+VS Code + Salesforce CLI
+
 # 👨‍💻 Author  
 **Christiantus Chimeziri Anyanwu**  
 Salesforce Developer | AI & Cloud Engineer  
